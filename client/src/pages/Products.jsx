@@ -4,7 +4,7 @@ import api from "../api/axios";
 import ProductCard from "../components/ProductCard";
 import "./Products.css";
 
-const categories = ["All", ...new Set(products.map((product) => product.category))];
+const categories = ["All", "Shoes", "Electronics", "Fashion", "Accessories", "Home"];
 
 const Products = () => {
   const [products, setProducts] = useState([]);
