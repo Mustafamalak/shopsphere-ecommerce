@@ -1,0 +1,98 @@
+.orders-head {
+  margin-bottom: 24px;
+}
+
+.orders-head h1 {
+  margin-top: 14px;
+  font-size: clamp(36px, 6vw, 62px);
+  line-height: 1;
+  letter-spacing: -0.07em;
+}
+
+.orders-list {
+  display: grid;
+  gap: 18px;
+}
+
+.order-card {
+  padding: 24px;
+}
+
+.order-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: start;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.order-top h3 {
+  font-size: 22px;
+}
+
+.order-top p {
+  margin-top: 5px;
+  color: #64748b;
+}
+
+.order-status {
+  padding: 9px 13px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 900;
+  background: #eef2ff;
+  color: #4f46e5;
+}
+
+.order-status.delivered {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.order-status.cancelled {
+  background: #ffe4e6;
+  color: #be123c;
+}
+
+.order-items {
+  margin-top: 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.order-item {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+}
+
+.order-item img {
+  height: 64px;
+  width: 64px;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.order-item p {
+  margin-top: 4px;
+  color: #64748b;
+}
+
+.order-total {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-total span {
+  color: #64748b;
+  font-weight: 800;
+}
+
+.order-total strong {
+  font-size: 25px;
+}
