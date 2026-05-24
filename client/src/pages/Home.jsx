@@ -1,27 +1,50 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles, ShieldCheck, Truck, CreditCard } from "lucide-react";
-import api from "../api/axios";
-import ProductCard from "../components/ProductCard";
-import "./Home.css";
+import {
+  ArrowRight,
+  Sparkles,
+  ShieldCheck,
+  Truck,
+  CreditCard,
+  ShoppingCart,
+} from "lucide-react";
+import api from "../api/axios.js";
+import ProductCard from "../components/ProductCard.jsx";
 import { useAuth } from "../context/AuthContext.jsx";
+import "./Home.css";
 
 const Home = () => {
   const { user } = useAuth();
   const [featured, setFeatured] = useState([]);
+  const [productCount, setProductCount] = useState(0);
 
   useEffect(() => {
-    const fetchFeatured = async () => {
+    const fetchHomeData = async () => {
       try {
-        const { data } = await api.get("/products/featured");
-        setFeatured(data.products || []);
+        const [featuredRes, productsRes] = await Promise.all([
+          api.get("/products/featured"),
+          api.get("/products"),
+        ]);
+
+        setFeatured(featuredRes.data.products || []);
+        setProductCount(productsRes.data.count || 0);
       } catch (error) {
-        console.error(error);
+        console.error("Failed to fetch home data:", error);
       }
     };
 
-    fetchFeatured();
+    fetchHomeData();
   }, []);
+
+  const avgRating =
+    featured.length > 0
+      ? (
+          featured.reduce(
+            (sum, product) => sum + Number(product.rating || 0),
+            0
+          ) / featured.length
+        ).toFixed(1)
+      : "4.5";
 
   return (
     <main className="page">
@@ -36,46 +59,41 @@ const Home = () => {
 
           <p>
             Discover curated products, smooth checkout, smart cart handling and
-            a clean admin-powered shopping experience.
+            an admin-powered shopping experience built with a full-stack MERN
+            workflow.
           </p>
 
           <div className="hero-actions">
-  <Link to="/products" className="btn btn-primary">
-    Explore Products <ArrowRight size={18} />
-  </Link>
+            <Link to="/products" className="btn btn-primary">
+              Explore Products <ArrowRight size={18} />
+            </Link>
 
-  {user ? (
-    <Link to="/cart" className="btn btn-secondary">
-      View Cart
-    </Link>
-  ) : (
-    <Link to="/signup" className="btn btn-secondary">
-      Create Account
-    </Link>
-  )}
-</div>
+            {user ? (
+              <Link to="/cart" className="btn btn-secondary">
+                <ShoppingCart size={18} />
+                View Cart
+              </Link>
+            ) : (
+              <Link to="/signup" className="btn btn-secondary">
+                Create Account
+              </Link>
+            )}
+          </div>
 
           <div className="hero-stats">
-  <div>
-    <strong>{featured.length}+</strong>
-    <span>Featured Items</span>
-  </div>
-  <div>
-    <strong>
-      {featured.length
-        ? (
-            featured.reduce((sum, product) => sum + Number(product.rating || 0), 0) /
-            featured.length
-          ).toFixed(1)
-        : "4.5"}
-    </strong>
-    <span>Avg Rating</span>
-  </div>
-  <div>
-    <strong>COD</strong>
-    <span>Payment</span>
-  </div>
-</div>
+            <div>
+              <strong>{productCount}</strong>
+              <span>Total Products</span>
+            </div>
+            <div>
+              <strong>{avgRating}</strong>
+              <span>Avg Rating</span>
+            </div>
+            <div>
+              <strong>COD</strong>
+              <span>Payment</span>
+            </div>
+          </div>
         </div>
 
         <div className="hero-visual card">
@@ -86,8 +104,11 @@ const Home = () => {
 
           <div className="hero-product">
             <img
-              src="https://images.unsplash.com/photo-1523275335684-37898b6baf30"
-              alt="Smart watch"
+              src={
+                featured[0]?.image ||
+                "https://images.unsplash.com/photo-1523275335684-37898b6baf30"
+              }
+              alt={featured[0]?.name || "Featured product"}
             />
           </div>
 
@@ -102,17 +123,19 @@ const Home = () => {
         <div>
           <ShieldCheck size={24} />
           <h3>Trusted quality</h3>
-          <p>Clean product catalog with reliable stock and pricing.</p>
+          <p>Products are managed from the admin dashboard and stored in MongoDB.</p>
         </div>
+
         <div>
           <Truck size={24} />
           <h3>Simple ordering</h3>
-          <p>Cart, shipping details and cash-on-delivery order flow.</p>
+          <p>Cart, shipping details and cash-on-delivery checkout are included.</p>
         </div>
+
         <div>
           <Sparkles size={24} />
-          <h3>Admin powered</h3>
-          <p>Admin can manage products and track customer orders.</p>
+          <h3>Full-stack control</h3>
+          <p>Admin can add products, delete products and update order status.</p>
         </div>
       </section>
 
@@ -121,6 +144,7 @@ const Home = () => {
           <span className="badge">Featured Collection</span>
           <h2>Popular picks for you</h2>
         </div>
+
         <Link to="/products" className="view-all">
           View all <ArrowRight size={18} />
         </Link>
@@ -128,11 +152,13 @@ const Home = () => {
 
       <section className="container products-grid">
         {featured.length > 0 ? (
-          featured.map((product) => <ProductCard key={product._id} product={product} />)
+          featured.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))
         ) : (
           <div className="empty-state card">
             <h3>No featured products yet</h3>
-            <p>Add products from your backend/admin panel with isFeatured set to true.</p>
+            <p>Add featured products from the admin dashboard or seed script.</p>
           </div>
         )}
       </section>

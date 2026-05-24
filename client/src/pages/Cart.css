@@ -6,7 +6,7 @@
   margin-top: 14px;
   font-size: clamp(36px, 6vw, 62px);
   line-height: 1;
-  letter-spacing: -0.07em;
+  letter-spacing: -0.075em;
 }
 
 .empty-cart {
@@ -21,7 +21,7 @@
 
 .cart-layout {
   display: grid;
-  grid-template-columns: 1.3fr 0.7fr;
+  grid-template-columns: minmax(0, 1.25fr) minmax(340px, 0.75fr);
   gap: 22px;
   align-items: start;
 }
@@ -34,7 +34,7 @@
 
 .cart-item {
   display: grid;
-  grid-template-columns: 92px 1fr auto auto auto;
+  grid-template-columns: 92px minmax(0, 1fr) auto auto auto;
   align-items: center;
   gap: 16px;
   padding: 14px;
@@ -52,12 +52,13 @@
 
 .cart-info h3 {
   font-size: 18px;
+  line-height: 1.25;
 }
 
 .cart-info p {
   margin-top: 6px;
   color: #64748b;
-  font-weight: 800;
+  font-weight: 850;
 }
 
 .cart-qty {
@@ -99,12 +100,12 @@
 .checkout-card {
   padding: 24px;
   position: sticky;
-  top: 110px;
+  top: 112px;
 }
 
 .checkout-card h2 {
   font-size: 30px;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.055em;
 }
 
 .checkout-card p {
@@ -134,12 +135,12 @@
 
 .total-row span {
   color: #64748b;
-  font-weight: 800;
+  font-weight: 850;
 }
 
 .total-row strong {
   font-size: 28px;
-  letter-spacing: -0.05em;
+  letter-spacing: -0.055em;
 }
 
 .checkout-btn {
@@ -171,10 +172,16 @@
     grid-template-columns: 80px 1fr;
   }
 
+  .cart-item img {
+    width: 80px;
+    height: 80px;
+  }
+
   .cart-item strong,
   .cart-qty,
   .remove-btn {
     grid-column: 2;
+    justify-self: start;
   }
 
   .checkout-grid {

@@ -29,11 +29,31 @@ const Cart = () => {
   const [placing, setPlacing] = useState(false);
 
   const handleAddressChange = (e) => {
+  const { name, value } = e.target;
+
+  if (name === "phone") {
+    const numericValue = value.replace(/\D/g, "").slice(0, 10);
     setShippingAddress((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      phone: numericValue,
     }));
-  };
+    return;
+  }
+
+  if (name === "pincode") {
+    const numericValue = value.replace(/\D/g, "").slice(0, 6);
+    setShippingAddress((prev) => ({
+      ...prev,
+      pincode: numericValue,
+    }));
+    return;
+  }
+
+  setShippingAddress((prev) => ({
+    ...prev,
+    [name]: value,
+  }));
+};
 
   const placeOrder = async (e) => {
     e.preventDefault();

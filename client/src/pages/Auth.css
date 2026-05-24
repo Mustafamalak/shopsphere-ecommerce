@@ -5,8 +5,8 @@
 }
 
 .auth-card {
-  width: min(460px, 92%);
-  padding: 34px;
+  width: min(470px, 92%);
+  padding: 36px;
 }
 
 .auth-brand {
@@ -15,7 +15,7 @@
   gap: 12px;
   font-size: 24px;
   font-weight: 950;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.045em;
   margin-bottom: 28px;
 }
 
@@ -32,7 +32,7 @@
 .auth-card h1 {
   font-size: 44px;
   line-height: 1;
-  letter-spacing: -0.07em;
+  letter-spacing: -0.075em;
 }
 
 .auth-card p {
@@ -64,20 +64,10 @@
   margin-top: 22px;
   color: #64748b;
   text-align: center;
-  font-weight: 700;
+  font-weight: 750;
 }
 
 .auth-footer a {
   color: #4f46e5;
   font-weight: 900;
-}
-
-.form-error {
-  margin-top: 18px;
-  padding: 13px 15px;
-  border-radius: 16px;
-  background: #fff1f2;
-  color: #be123c;
-  font-weight: 800;
-  font-size: 14px;
 }
