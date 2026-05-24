@@ -4,8 +4,10 @@ import { ArrowRight, Sparkles, ShieldCheck, Truck, CreditCard } from "lucide-rea
 import api from "../api/axios";
 import ProductCard from "../components/ProductCard";
 import "./Home.css";
+import { useAuth } from "../context/AuthContext.jsx";
 
 const Home = () => {
+  const { user } = useAuth();
   const [featured, setFeatured] = useState([]);
 
   useEffect(() => {
@@ -38,28 +40,42 @@ const Home = () => {
           </p>
 
           <div className="hero-actions">
-            <Link to="/products" className="btn btn-primary">
-              Explore Products <ArrowRight size={18} />
-            </Link>
-            <Link to="/signup" className="btn btn-secondary">
-              Create Account
-            </Link>
-          </div>
+  <Link to="/products" className="btn btn-primary">
+    Explore Products <ArrowRight size={18} />
+  </Link>
+
+  {user ? (
+    <Link to="/cart" className="btn btn-secondary">
+      View Cart
+    </Link>
+  ) : (
+    <Link to="/signup" className="btn btn-secondary">
+      Create Account
+    </Link>
+  )}
+</div>
 
           <div className="hero-stats">
-            <div>
-              <strong>50+</strong>
-              <span>Products</span>
-            </div>
-            <div>
-              <strong>4.7</strong>
-              <span>Avg Rating</span>
-            </div>
-            <div>
-              <strong>COD</strong>
-              <span>Payment</span>
-            </div>
-          </div>
+  <div>
+    <strong>{featured.length}+</strong>
+    <span>Featured Items</span>
+  </div>
+  <div>
+    <strong>
+      {featured.length
+        ? (
+            featured.reduce((sum, product) => sum + Number(product.rating || 0), 0) /
+            featured.length
+          ).toFixed(1)
+        : "4.5"}
+    </strong>
+    <span>Avg Rating</span>
+  </div>
+  <div>
+    <strong>COD</strong>
+    <span>Payment</span>
+  </div>
+</div>
         </div>
 
         <div className="hero-visual card">

@@ -4,7 +4,7 @@ import api from "../api/axios";
 import ProductCard from "../components/ProductCard";
 import "./Products.css";
 
-const categories = ["All", "Shoes", "Electronics", "Fashion", "Accessories", "Home"];
+const categories = ["All", ...new Set(products.map((product) => product.category))];
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -42,7 +42,9 @@ const Products = () => {
           Smart catalog
         </span>
         <h1>Find products that fit your lifestyle.</h1>
-        <p>Search, filter and add products to your cart with a smooth shopping flow.</p>
+        <p>
+  Search and filter from {products.length} available products with a smooth shopping flow.
+</p>
       </section>
 
       <section className="container product-tools">

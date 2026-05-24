@@ -49,6 +49,29 @@ const Cart = () => {
       return;
     }
 
+    const phoneRegex = /^[6-9]\d{9}$/;
+const pincodeRegex = /^[1-9][0-9]{5}$/;
+
+if (!phoneRegex.test(shippingAddress.phone)) {
+  setError("Enter a valid 10-digit Indian phone number");
+  return;
+}
+
+if (shippingAddress.address.trim().length < 8) {
+  setError("Address must be at least 8 characters long");
+  return;
+}
+
+if (shippingAddress.city.trim().length < 2) {
+  setError("Enter a valid city name");
+  return;
+}
+
+if (!pincodeRegex.test(shippingAddress.pincode)) {
+  setError("Enter a valid 6-digit Indian pincode");
+  return;
+}
+
     try {
       setPlacing(true);
 
@@ -144,6 +167,7 @@ const Cart = () => {
                 value={shippingAddress.phone}
                 onChange={handleAddressChange}
                 required
+                pattern="[6-9][0-9]{9}"
               />
               <input
                 className="input full"
@@ -168,6 +192,7 @@ const Cart = () => {
                 value={shippingAddress.pincode}
                 onChange={handleAddressChange}
                 required
+                pattern="[1-9][0-9]{5}"
               />
             </div>
 

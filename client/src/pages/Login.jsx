@@ -26,6 +26,13 @@ const Login = () => {
     e.preventDefault();
     setError("");
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if (!emailRegex.test(formData.email)) {
+  setError("Please enter a valid email address");
+  return;
+}
+
     try {
       await login(formData);
       navigate("/");

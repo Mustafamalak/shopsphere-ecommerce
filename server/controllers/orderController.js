@@ -24,6 +24,33 @@ const createOrder = async (req, res) => {
       });
     }
 
+    const phoneRegex = /^[6-9]\d{9}$/;
+const pincodeRegex = /^[1-9][0-9]{5}$/;
+
+if (!phoneRegex.test(shippingAddress.phone)) {
+  return res.status(400).json({
+    message: "Please provide a valid 10-digit Indian phone number",
+  });
+}
+
+if (!pincodeRegex.test(shippingAddress.pincode)) {
+  return res.status(400).json({
+    message: "Please provide a valid 6-digit Indian pincode",
+  });
+}
+
+if (shippingAddress.address.trim().length < 8) {
+  return res.status(400).json({
+    message: "Address must be at least 8 characters long",
+  });
+}
+
+if (shippingAddress.city.trim().length < 2) {
+  return res.status(400).json({
+    message: "Please provide a valid city name",
+  });
+}
+
     let totalAmount = 0;
     const orderItems = [];
 

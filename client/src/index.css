@@ -40,8 +40,21 @@ button {
   margin: 0 auto;
 }
 
-.page {
-  padding: 110px 0 50px;
+.section-title {
+  font-size: clamp(34px, 5vw, 60px);
+  line-height: 1;
+  letter-spacing: -0.07em;
+}
+
+.section-subtitle {
+  margin-top: 12px;
+  color: #64748b;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.page-header {
+  margin-bottom: 28px;
 }
 
 .btn {

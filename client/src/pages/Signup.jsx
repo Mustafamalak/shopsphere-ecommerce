@@ -27,6 +27,17 @@ const Signup = () => {
     e.preventDefault();
     setError("");
 
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+if (!emailRegex.test(formData.email)) {
+  setError("Please enter a valid email address");
+  return;
+}
+
+if (formData.password.length < 6) {
+  setError("Password must be at least 6 characters");
+  return;
+}
     try {
       await signup(formData);
       navigate("/");
@@ -69,6 +80,7 @@ const Signup = () => {
             value={formData.email}
             onChange={handleChange}
             required
+            pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
           />
 
           <input
